@@ -116,6 +116,17 @@ let equipos = [
 			{id: 2, nombre: 'juan'}
 		]
 	},
+	{
+		id: 11,
+		nombre: 'Golden State Warriors',
+		estadio: [
+			{pabellon: 'Oracle Arena', capacidad: '19.596', propiedad: 'Pública'}
+		],
+		jugadores: [
+			{id: 1, nombre: 'carlos'},
+			{id: 2, nombre: 'juan'}
+		]
+	},
 	
 ];
 
@@ -135,6 +146,31 @@ app.get('/', (req, res) => {
 // http://127.0.0.1:5000/equipos
 app.get('/equipos', (req, res) => {
     res.send(equipos)
+})
+
+// URL para eliminar un usuario
+// http://127.0.0.1:5000/equipos
+app.post('/equipos', (req, res) => {
+    let data = req.query;
+	equipos.push(data.user_name)
+    res.send("New user add")
+})
+
+// URL para actualizar un usuario
+// http://127.0.0.1:5000/equipos/1
+app.patch('/equipos/:id',(req, res) => {
+    let params = req.params;
+    let data = req.query;
+	equipos[params.id] = data.user_name
+    res.send("User update")
+})
+
+// URL para eliminar un usuario
+// http://127.0.0.1:5000/equipos/1
+app.delete('/equipos/:id',(req, res) => {
+    let params = req.params;
+	equipos.splice(params.id, 1);
+    res.send('User delete')
 })
 
 // Crear y lanzar el servidor
